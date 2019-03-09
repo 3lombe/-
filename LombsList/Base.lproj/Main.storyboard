@@ -32,7 +32,14 @@
                             <outlet property="delegate" destination="GGp-1z-Huf" id="0rg-cU-OAT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Lombs List" id="85f-Fz-u5v"/>
+                    <navigationItem key="navigationItem" title="Lombs List" id="85f-Fz-u5v">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="RX0-7z-cjN">
+                            <color key="tintColor" red="0.94536237801260925" green="0.96827613143544067" blue="1" alpha="0.67685145550000003" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="GGp-1z-Huf" id="Kac-Dl-nxZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBy-k0-1IO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

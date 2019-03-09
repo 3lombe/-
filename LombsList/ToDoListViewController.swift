@@ -35,6 +35,7 @@ class ToDoListViewController: UITableViewController {
     //MARK - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //Row was selected
         
         
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
@@ -45,6 +46,29 @@ class ToDoListViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    //MARK - Add New Items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        //local variables
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New List Item", message: "", preferredStyle: .alert)
+        let actionButton = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            // User clicked add item button on UIAlert
+            
+            print("Success")
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create New Item"
+            textField = alertTextField
+            print(alertTextField.text)
+        }
+        
+        alert.addAction(actionButton)
+        present(alert, animated: true, completion: nil)
+    }
+    
 
 }
 
