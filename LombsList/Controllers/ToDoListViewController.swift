@@ -83,7 +83,7 @@ class ToDoListViewController: UITableViewController {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         // Update data
-        tableView.reloadData()
+        SaveItems() 
         
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -105,16 +105,8 @@ class ToDoListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             
-            let encoder = PropertyListEncoder()
+            self.SaveItems()
             
-            do {
-                let data = try encoder.encode(self.itemArray)
-                try data.write(to: self.dataFilePath!)
-            } catch {
-                print("Error encoding item array\(error)")
-            }
-            
-            self.tableView.reloadData()
         }
         
         alert.addTextField { (alertTextField) in
@@ -124,6 +116,21 @@ class ToDoListViewController: UITableViewController {
         
         alert.addAction(actionButton)
         present(alert, animated: true, completion: nil)
+    }
+    
+    // Save Items
+    func SaveItems(){
+        
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array\(error)")
+        }
+        
+        self.tableView.reloadData()
     }
     
 
