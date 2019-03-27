@@ -16,20 +16,11 @@ class ToDoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(dataFilePath)
         
+        //Previously saved items, items should now load up once view loads
         
-        
-        let newItem = Item()
-        newItem.title = "Go Ski"
-        itemArray.append(newItem)
-        
-        let newItem2 = Item()
-        newItem2.title = "Pick Up Nachos"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "Sleep"
-        itemArray.append(newItem3)
+        LoadItems()
         
         
 //        if let items  = defaults.array(forKey: "ToDoListArray") as? [Item] {
@@ -133,6 +124,18 @@ class ToDoListViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    func LoadItems(){
+        if let data = try? Data(contentsOf: dataFilePath!){
+            
+            // if data through file path exists... decode
+            let decoder = PropertyListDecoder()
+            do {
+            itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error decoding item array\(error)")
+            }
+        }
+    }
 
 }
 
