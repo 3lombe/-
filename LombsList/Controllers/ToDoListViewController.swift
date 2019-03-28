@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoListViewController: UITableViewController {
 
     var itemArray = [Item]()
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    
+    //Get the context from app delegate
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +87,7 @@ class ToDoListViewController: UITableViewController {
     //MARK - Add New Items
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
         //local variables
         var textField = UITextField()
         
@@ -90,9 +95,12 @@ class ToDoListViewController: UITableViewController {
         
         let actionButton = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
+            
             // User clicked add item button on UIAlert
-            let newItem = Item()
+            let newItem = Item(context: self.context)
+            
             newItem.title = textField.text!
+            newItem.done = false
             
             self.itemArray.append(newItem)
             
@@ -115,25 +123,23 @@ class ToDoListViewController: UITableViewController {
         let encoder = PropertyListEncoder()
         
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
+            try context.save()
         } catch {
-            print("Error encoding item array\(error)")
+           print("Error saving context, \(error)")
         }
         
         self.tableView.reloadData()
     }
     
     func LoadItems(){
-        if let data = try? Data(contentsOf: dataFilePath!){
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        
+        do {
+            itemArray = try context.fetch(request)
             
-            // if data through file path exists... decode
-            let decoder = PropertyListDecoder()
-            do {
-            itemArray = try decoder.decode([Item].self, from: data)
-            } catch {
-                print("Error decoding item array\(error)")
-            }
+        } catch {
+            print("Error fetching request from context, \(error)")
+            
         }
     }
 
