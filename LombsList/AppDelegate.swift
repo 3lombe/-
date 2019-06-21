@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print(String(describing: Realm.Configuration.defaultConfiguration.fileURL))
+        print("\n\nREALM FILE DIRECTORY HERE:\n\(String(describing: Realm.Configuration.defaultConfiguration.fileURL))\n\n")
         
         
         do {
