@@ -42,7 +42,6 @@ class ToDoListViewController: UITableViewController {
         
         // Ternary operator ==>
         // value = condition ? valueIfTrue ; valueIfFalse
-        
         cell.accessoryType = item.done == true ? .checkmark : .none
        } else {
         cell.textLabel?.text = "No Items Added"
@@ -54,9 +53,18 @@ class ToDoListViewController: UITableViewController {
     // MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if let item = todoItems?[indexPath.row] {
+            do{
+                try realm.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Error saving data status, \(error)")
+            }
+        }
         
-//        todoItems[indexPath.row].done = !todoItems[indexPath.row].done
-//        saveItems()
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
