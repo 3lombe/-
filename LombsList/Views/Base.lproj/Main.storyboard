@@ -80,12 +80,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Items" id="85f-Fz-u5v">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="RX0-7z-cjN">
-                            <color key="tintColor" red="0.94536237801260925" green="0.96827613143544067" blue="1" alpha="0.67685145550000003" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="GGp-1z-Huf" id="Kac-Dl-nxZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="i7u-yR-l1I" id="e26-KH-bh7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBy-k0-1IO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -96,10 +98,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fyq-eU-Vwn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IFt-yK-N8c">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="IFt-yK-N8c">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.2698243590615203" green="0.67713287732915528" blue="0.82600333121827407" alpha="0.67685145550000003" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="barTintColor" red="0.27058823529411763" green="0.67843137254901964" blue="0.82745098039215681" alpha="0.67685145550000003" colorSpace="custom" customColorSpace="displayP3"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>

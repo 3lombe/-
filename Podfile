@@ -6,6 +6,7 @@ target 'LombsList' do
   use_frameworks!
 pod 'RealmSwift'
 pod 'SwipeCellKit'
+pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   # Pods for LombsList
 
 end

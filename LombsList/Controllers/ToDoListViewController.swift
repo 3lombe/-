@@ -8,10 +8,16 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ToDoListViewController: SwipeTableViewController {
 
     // MARK: - Properties
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    let dataFilePath = "\n\nDATA FILE DIRECTORY HERE:\n\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))\n\n"
+    
     let realm = try! Realm()
     var todoItems : Results<Item>?
     var selectedCategory : Category? {
@@ -24,7 +30,31 @@ class ToDoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(dataFilePath)
+        print(dataFilePath)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.name
+        guard let navHexColorFromCategory = selectedCategory?.hexColor else {fatalError()}
+        updateNavBar(withHexCode: navHexColorFromCategory)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        updateNavBar(withHexCode: "45ADD3")
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : FlatWhite()]
+    }
+    
+    // MARK: - Nav Bar Setup Methods
+    func updateNavBar(withHexCode colorHexCode: String){
+        
+        guard let navBar = navigationController?.navigationBar else {fatalError("navigation controller does not exist.")}
+        
+        guard let navBarColor = UIColor(hexString: colorHexCode) else {fatalError()}
+        navBar.barTintColor = navBarColor
+        navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+        searchBar.barTintColor = navBarColor
+        
     }
 
     // MARK: - Tableview Datasource Methods
@@ -41,6 +71,10 @@ class ToDoListViewController: SwipeTableViewController {
         
         cell.textLabel?.text = item.title
         
+        if let gradientColor = UIColor(hexString: selectedCategory!.hexColor)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
+            cell.backgroundColor = gradientColor
+            cell.textLabel?.textColor = ContrastColorOf(gradientColor, returnFlat: true)
+        }
         // Ternary operator ==>
         // value = condition ? valueIfTrue ; valueIfFalse
         cell.accessoryType = item.done == true ? .checkmark : .none
