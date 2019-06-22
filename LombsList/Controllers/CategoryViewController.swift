@@ -41,7 +41,6 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: segue, sender: self)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -88,9 +87,7 @@ class CategoryViewController: UITableViewController {
     }
     
     func loadCategories(){
-        
         categories = realm.objects(Category.self)
-        
         tableView.reloadData()
     }
     
