@@ -16,8 +16,6 @@ class ToDoListViewController: SwipeTableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    let dataFilePath = "\n\nDATA FILE DIRECTORY HERE:\n\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))\n\n"
-    
     let realm = try! Realm()
     var todoItems : Results<Item>?
     var selectedCategory : Category? {
@@ -30,7 +28,6 @@ class ToDoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(dataFilePath)
     }
     
     override func viewWillAppear(_ animated: Bool) {
